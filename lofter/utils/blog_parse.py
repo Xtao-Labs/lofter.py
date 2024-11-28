@@ -24,7 +24,7 @@ def get_web_tag_image(_post: dict) -> List[ArtWorkImage]:
     data = []
     # video
     if _embed := _post.get("embed"):
-        embed = json.loads(_embed.replace("'", '"'))
+        embed = json.loads(_embed.replace("'", '"').replace("None", "null"))
         url = embed.get("h256Url") or embed.get("video_down_url")
         if url:
             data.append(
@@ -37,7 +37,7 @@ def get_web_tag_image(_post: dict) -> List[ArtWorkImage]:
             )
     # photo gif
     if _photo_links := _post.get("photoLinks"):
-        photo_links = json.loads(_photo_links.replace("'", '"'))
+        photo_links = json.loads(_photo_links.replace("'", '"').replace("None", "null"))
         for p in photo_links:
             if orign := p.get("orign"):
                 data.append(ArtWorkImage(url=rewrite_image_url(orign)))
@@ -52,7 +52,7 @@ def get_web_tag_post(data: dict) -> Optional[ArtWork]:
     images = get_web_tag_image(_post)
     return ArtWork(
         blog_id=_post.get("id"),
-        title=_post.get("title"),
+        title=_post.get("title") or "",
         url=_post.get("blogPageUrl"),
         images=images,
         tags=_post.get("tagList"),
