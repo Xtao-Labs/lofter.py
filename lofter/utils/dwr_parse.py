@@ -1,22 +1,4 @@
 import re
-from bs4 import BeautifulSoup
-
-
-def get_blogs_from_htmls(htmls):
-    blog_part = re.compile(r"https?://[^.]*\.lofter\.com")
-    req_blogs = set()
-    for html in htmls:
-        soup = BeautifulSoup(html, "lxml")
-        for atag in soup.findAll("a", {"href": True}):
-            href = atag["href"]
-            req_blog = blog_part.findall(href)
-            if req_blog:
-                req_blogs.add(req_blog[0].replace("http:", "https:"))
-    return list(req_blogs)
-
-
-def get_domain(url):
-    return re.sub(r"https?://([^/]*).*", r"\1", url)
 
 
 # Parse a dwr response and return a list of dict objects
@@ -66,8 +48,3 @@ def parse_dwr_string(dwr_string: str) -> list[dict]:
     exec(string, ns)
 
     return ns["resp"]
-
-
-def fix_tags(tag_list):
-    tags = [tag.replace("\xa0", r" ").lower() for tag in tag_list]
-    return tags

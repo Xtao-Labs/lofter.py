@@ -2,6 +2,7 @@ from urllib.parse import quote
 
 from lofter.client.base import BaseClient
 from lofter.client.routes import TAG_URL
+from lofter.utils.blog_parse import get_web_tag_posts
 from lofter.utils.dwr_parse import parse_dwr_string
 from lofter.utils.enums import TagType
 
@@ -36,4 +37,5 @@ class WebTagClient(BaseClient):
             "batchId": 493053,
         }
         text = (await self.request_web("POST", url, data=payload)).text
-        return parse_dwr_string(text)
+        data = parse_dwr_string(text)
+        return get_web_tag_posts(data)
