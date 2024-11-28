@@ -50,10 +50,9 @@ class ArtWork(BaseModel):
         return int(self.create_time.replace(tzinfo=timezone.utc).timestamp())
 
     def format_text(self) -> str:
+        title = f"Title {self.title}\n" if self.title else ""
         return (
-            f"Title {self.title}\n"
-            if self.title
-            else ""
+            f"{title}"
             f"Tag {self.format_tags()}\n"
             f"From <a href='{self.url}'>{self.web_name}</a> "
             f"By <a href='{self.author.url}'>{self.author.name}</a>\n"
