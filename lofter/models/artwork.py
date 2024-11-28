@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from enum import IntEnum
 from typing import List, Optional
 
@@ -46,8 +46,8 @@ class ArtWork(BaseModel):
     def format_tags(self) -> str:
         return " ".join(f"#{tag}" for tag in self.tags)
 
-    def get_create_time_timestamp(self) -> int:
-        return int(self.create_time.replace(tzinfo=timezone.utc).timestamp())
+    def get_cn_create_time(self) -> datetime:
+        return self.create_time + timedelta(hours=8)
 
     def format_text(self) -> str:
         title = f"Title {self.title}\n" if self.title else ""
@@ -56,5 +56,5 @@ class ArtWork(BaseModel):
             f"Tag {self.format_tags()}\n"
             f"From <a href='{self.url}'>{self.web_name}</a> "
             f"By <a href='{self.author.url}'>{self.author.name}</a>\n"
-            f"At {self.create_time.strftime('%Y-%m-%d %H:%M')}"
+            f"At {self.get_cn_create_time().strftime('%Y-%m-%d %H:%M')}"
         )
