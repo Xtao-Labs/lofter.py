@@ -9,7 +9,7 @@ from lofter.models.author import BlogInfo
 
 
 class PhotoLink(ArtWorkImage):
-    url: str = Field(alias="raw")
+    url: str = Field(alias="orign")
 
 
 class PhotoPostView(BaseModel):

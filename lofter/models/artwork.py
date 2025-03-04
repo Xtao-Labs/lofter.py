@@ -21,7 +21,8 @@ class ArtWorkImage(BaseModel):
 
     @property
     def format_url(self) -> str:
-        return self.url + "?imageView&thumbnail=1920x0&quality=90&stripmeta=0&type=jpg"
+        url = self.url.split("?")[0]
+        return url + "?imageView&thumbnail=1920x0&quality=90&stripmeta=0&type=jpg"
 
     @property
     def type(self) -> ImageType:
