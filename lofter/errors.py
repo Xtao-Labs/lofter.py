@@ -8,3 +8,7 @@ class NetworkError(LofterException):
 
 class TimedOut(NetworkError):
     """Raised when a request took too long to finish."""
+
+
+class InvalidResponse(LofterException):
+    """Raised when the response from the server is invalid."""
