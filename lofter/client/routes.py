@@ -105,5 +105,5 @@ class Route(BaseRoute):
 ROOT_URL = Route("https://www.lofter.com")
 API_URL = Route("https://api.lofter.com")
 
-TAG_URL = ROOT_URL / "dwr/call/plaincall/TagBean.getCommonTagExcellentAuthors.dwr"
+TAG_URL = ROOT_URL / "dwr/call/plaincall/TagBean.search.dwr"
 TAG_ANDROID_URL = API_URL / "newapi/tagPosts.json"

@@ -23,6 +23,8 @@ class BaseClient(AsyncContextManager["BaseClient"]):
 
     def __init__(
         self,
+        login_auth_key: str = None,
+        login_method: str = "LOFTER-PHONE-LOGIN-AUTH",
         timeout: int = None,
     ) -> None:
         """Initialize the client with the given parameters."""
@@ -33,7 +35,10 @@ class BaseClient(AsyncContextManager["BaseClient"]):
                 write=5.0,
                 pool=1.0,
             )
-        self.client = AsyncClient(timeout=timeout)
+        cookies = None
+        if login_auth_key:
+            cookies = {login_method: login_auth_key}
+        self.client = AsyncClient(cookies=cookies, timeout=timeout)
 
     async def __aenter__(self: "BaseClient") -> "BaseClient":
         """Enter the async context manager and initialize the client."""

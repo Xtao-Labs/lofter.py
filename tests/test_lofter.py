@@ -5,8 +5,8 @@ from lofter.client.lofter import LofterClient
 
 
 @pytest_asyncio.fixture
-async def lofter_client():
-    async with LofterClient() as client_instance:
+async def lofter_client(login_auth_key: str):
+    async with LofterClient(login_auth_key=login_auth_key) as client_instance:
         yield client_instance
 
 
